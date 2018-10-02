@@ -1,10 +1,15 @@
 package com.example.user.blooddonation;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -18,6 +23,7 @@ import android.view.MenuItem;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,6 +34,7 @@ public class ReceiverActivity extends AppCompatActivity implements SearchView.On
 
     String fetchUrl = "https://cosmos182.herokuapp.com/donation/getdoners";
     ActionBar toolbar;
+    private ShimmerFrameLayout mShimmerViewContainer;
 
     AQuery aquery;
     private List<Doners> donersList;
@@ -39,6 +46,9 @@ public class ReceiverActivity extends AppCompatActivity implements SearchView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_receiver);
 
+        if (!isConnected(ReceiverActivity.this)){ buildDialog(ReceiverActivity.this).show();}
+
+        mShimmerViewContainer = findViewById(R.id.shimmer_view_container);
         recyclerView = findViewById(R.id.recycler_view);
         aquery = new AQuery(this);
 
@@ -149,9 +159,50 @@ public class ReceiverActivity extends AppCompatActivity implements SearchView.On
         }
     };
 
+
+    public boolean isConnected(Context context) {
+
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netinfo = cm.getActiveNetworkInfo();
+
+        if (netinfo != null && netinfo.isConnectedOrConnecting()) {
+            android.net.NetworkInfo wifi = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+            android.net.NetworkInfo mobile = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+            if ((mobile != null && mobile.isConnectedOrConnecting()) || (wifi != null && wifi.isConnectedOrConnecting()))
+                return true;
+            else return false;
+        } else
+            return false;
+    }
+
+    public AlertDialog.Builder buildDialog(Context c) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(c);
+        builder.setTitle("No Internet Connection");
+        builder.setMessage("You need to have Mobile Data or wifi to Register");
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                //finish();
+            }
+        });
+        return builder;
+    }
+
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         fetchData();
+        mShimmerViewContainer.startShimmer();
+    }
+
+    @Override
+    public void onPause() {
+        mShimmerViewContainer.stopShimmer();
+        super.onPause();
     }
 }

@@ -25,7 +25,7 @@ public class ReceiverAdapter extends RecyclerView.Adapter<ReceiverAdapter.MyView
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView name, phone,group, district;
+        public TextView name, phone, group, district;
         private String mItem;
         private TextView mTextView;
 
@@ -40,6 +40,7 @@ public class ReceiverAdapter extends RecyclerView.Adapter<ReceiverAdapter.MyView
 
 
         }
+
         public void setItem(String item) {
             mItem = item;
             mTextView.setText(item);
@@ -48,7 +49,8 @@ public class ReceiverAdapter extends RecyclerView.Adapter<ReceiverAdapter.MyView
         @Override
         public void onClick(View view) {
             /*Log.d(TAG, "onClick " + getPosition() + " " + mItem);
-            Toast.makeText(view.getContext(), "Item is clicked", Toast.LENGTH_SHORT).show()*/;
+            Toast.makeText(view.getContext(), "Item is clicked", Toast.LENGTH_SHORT).show()*/
+            ;
             Context context = view.getContext();
             String phoneValue = phone.getText().toString();
             Toast.makeText(view.getContext(), phoneValue, Toast.LENGTH_SHORT).show();
@@ -60,7 +62,7 @@ public class ReceiverAdapter extends RecyclerView.Adapter<ReceiverAdapter.MyView
 
     }
 
-    public ReceiverAdapter(List<Doners> donerList){
+    public ReceiverAdapter(List<Doners> donerList) {
         this.donerList = donerList;
 
     }
@@ -90,10 +92,12 @@ public class ReceiverAdapter extends RecyclerView.Adapter<ReceiverAdapter.MyView
         return donerList.size();
     }
 
-    public void setFilters(ArrayList<Doners> newList){
+    public void setFilters(ArrayList<Doners> newList) {
         donerList = new ArrayList<>();
         donerList.addAll(newList);
         notifyDataSetChanged();
     }
 
+
 }
+
