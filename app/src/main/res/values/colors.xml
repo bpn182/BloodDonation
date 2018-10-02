@@ -6,4 +6,6 @@
 
     <color name="buttonView">#fe485a</color>
     <color name="white">#fff</color>
+    <color name="Actionbar">#1565c0</color>
+    <color name="ActionBar2">#1976d2</color>
 </resources>

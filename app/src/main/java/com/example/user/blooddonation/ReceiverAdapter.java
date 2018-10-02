@@ -5,20 +5,16 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.content.ContentValues.TAG;
 
-
-public class DonersAdapter extends RecyclerView.Adapter<DonersAdapter.MyViewHolder> {
+public class ReceiverAdapter extends RecyclerView.Adapter<ReceiverAdapter.MyViewHolder> {
     private List<Doners> donerList;
     private ArrayList<Doners> filter;
     private ArrayList<Doners> newList;
@@ -64,14 +60,14 @@ public class DonersAdapter extends RecyclerView.Adapter<DonersAdapter.MyViewHold
 
     }
 
-    public DonersAdapter(List<Doners> donerList){
+    public ReceiverAdapter(List<Doners> donerList){
         this.donerList = donerList;
 
     }
 
     @NonNull
     @Override
-    public DonersAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public ReceiverAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         View itemView = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.doners_list, viewGroup, false);
