@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/donate"
+        android:enabled="true"
+        android:title="@string/doner"
+        android:icon="@drawable/ic_people_black_24dp"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/receive"
+        android:enabled="true"
+        android:icon="@drawable/ic_add_location_black_24dp"
+        android:title="@string/receive"
+        app:showAsAction="ifRoom" />
+
+</menu>
